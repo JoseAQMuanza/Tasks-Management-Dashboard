@@ -12,7 +12,7 @@ const Form = () => {
   const [options, setOptions] = useState([]);
   const navigate = useNavigate();
 
-  const url = "http://localhost:3000";
+  const url = `${import.meta.env.VITE_API_URL}`;
 
   const handleTitle = (e) => { setTitle(e.target.value) }
   const handleDescription = (e) => { setDescription(e.target.value) }

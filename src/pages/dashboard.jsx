@@ -6,8 +6,7 @@ import TodoItem from "../components/todo_item";
 const Dashboard = () => {
   const [copyTasks, setCopyTasks] = useState([]);
   const [tasks, setTasks] = useState([])
-  const url = "http://localhost:3000/Tasks"
-
+  const url = `${import.meta.env.VITE_API_URL}/Tasks`;
     const filterTasks = (status) => {
       switch (status) {
         case "all":

@@ -19,7 +19,7 @@ const Edit = () => {
 
   useEffect(() => {
     const getTask = async () => {
-      const url = "http://localhost:3000/Tasks";
+      const url = `${import.meta.env.VITE_API_URL}/Tasks`;
       try {
         const response = await fetch(`${url}/${id}`, {
           method: "GET",
@@ -44,7 +44,7 @@ const Edit = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      const url = "http://localhost:3000/Tasks";
+      const url = `${import.meta.env.VITE_API_URL}/Tasks`;
       const updateTask = async () => {
         try {
           const response = await fetch(`${url}/${id}`, {
