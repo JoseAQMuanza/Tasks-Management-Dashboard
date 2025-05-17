@@ -1,4 +1,5 @@
-# React Task Manager
+# Tasks-Management-Dashboard# React Task Manager
+>>>>>>> 7091e2a (first commit)
 
 This is a task management application built with **ReactJS**, **React Router**, and **TailwindCSS**. It allows users to add, edit, delete, and mark tasks as complete. Tasks can also be filtered by their status (all, pending, completed) and priority (high, medium, low).
 
