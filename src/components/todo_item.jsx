@@ -24,6 +24,7 @@ export default function TodoItem({ task }) {
       }
     }
     fetchData();
+    navigate("/");
   }
 
   const handleDelete = (taskId) => {
@@ -44,6 +45,7 @@ export default function TodoItem({ task }) {
       }
     }
     fetchData();
+    navigate("/");
   }
 
   const submitEdit = (itemId) => {
