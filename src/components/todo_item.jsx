@@ -3,8 +3,8 @@ import Button from "./form/button";
 
 export default function TodoItem({ task }) {
   const navigate = useNavigate();
-  const url = `${import.meta.env.VITE_API_URL}/Tasks`;
-  
+  const url = `${import.meta.env.VITE_API_URL}/Tasks`;  
+
   const handleComplete = (taskId) => {    
     const fetchData = async () => {
       try {
@@ -23,8 +23,7 @@ export default function TodoItem({ task }) {
         console.error("Error completing task:", error);
       }
     }
-    fetchData();
-    navigate("/");
+    fetchData();    
   }
 
   const handleDelete = (taskId) => {
@@ -44,8 +43,7 @@ export default function TodoItem({ task }) {
         console.error("Error deleting task:", error);
       }
     }
-    fetchData();
-    navigate("/");
+    fetchData();    
   }
 
   const submitEdit = (itemId) => {
