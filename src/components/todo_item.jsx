@@ -3,7 +3,7 @@ import Button from "./form/button";
 
 export default function TodoItem({ task }) {
   const navigate = useNavigate();
-  const url = "http://localhost:3000/Tasks"
+  const url = `${import.meta.env.VITE_API_URL}/Tasks`;
   
   const handleComplete = (taskId) => {    
     const fetchData = async () => {
