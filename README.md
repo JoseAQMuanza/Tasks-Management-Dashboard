@@ -7,8 +7,8 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-blue?logo=tailwindcss)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## 🚀 Demo ao vivo  
-[👁️ Veja o projeto no ar](https://jose-dashboard.vercel.app/)
+## 🚀 Live demo
+[👁️ View the project live](https://jose-dashboard.vercel.app/)
 
 ---
 
