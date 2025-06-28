@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TodoItem from "../components/todo_item";
+import Modal from "../components/modal";
 
 const Dashboard = () => {
-  const [copyTasks, setCopyTasks] = useState([]);
   const [tasks, setTasks] = useState([])
+  const [modifiedTasks, setModifiedTasks] = useState([]);
+  const [status, setStatus] = useState('all')
+  const [showModal, setShowModal] = useState("");  
+  const [deleteId, setDeleteId] = useState();
+  const [completedTask, setCompletedTask] = useState();
   const url = `${import.meta.env.VITE_API_URL}/Tasks`;
-    const filterTasks = (status) => {
-      switch (status) {
-        case "all":
-          setTasks(copyTasks);
-          break
-        case "true":             
-          setTasks(copyTasks.filter((task) => task.state === "true"));          
-          break
-        case "false":          
-          setTasks(copyTasks.filter((task) => task.state === "false"));              
-          break;
-      }
-    };
+  const filterTasks = (newStatus) => {
+    setStatus(newStatus)
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -34,14 +29,81 @@ const Dashboard = () => {
         }
         const data = await response.json();
         setTasks(data);
-        setCopyTasks(data);
+        setModifiedTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
 
     fetchTasks();
-  }, [tasks]);
+  }, []);
+
+  useEffect(() => {
+    const myTasks = [...tasks];
+    const filteredTask = myTasks.filter((task) => {
+      if (status === "all") {
+        return true;
+      } else if (status === "true") {
+        return task.state === "true";
+      } else if (status === "false") {
+        return task.state === "false";
+      }
+    });
+    setModifiedTasks(filteredTask);
+  }, [status]);
+
+  const onComplete = (id) => {        
+    setShowModal("complete");    
+    setCompletedTask(id);
+  }
+
+  const onDelete = (id) => {
+    setShowModal("delete");
+    setDeleteId(id);    
+  }
+
+    const handleComplete = (taskId) => {
+      
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${url}/${taskId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ state: "true" }),
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        alert("Task completed successfully");
+      } catch (error) {
+        console.error("Error completing task:", error);
+      }
+    }
+    fetchData();
+  }
+
+  const handleDelete = (taskId) => {    
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${url}/${taskId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        alert("Task deleted successfully");
+      } catch (error) {
+        console.error("Error deleting task:", error);
+      }
+    }
+    fetchData();
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -77,9 +139,26 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (<TodoItem key={task.id} task={task} />))}
+            {modifiedTasks.map((task) => (<TodoItem 
+              key={task.id} 
+              task={task} 
+              onDelete={(id) => onDelete(id)} 
+              onComplete={(id) => onComplete(id)} />))}
           </tbody>
         </table>
+
+        {showModal === "complete" && 
+        <Modal
+          onConfirm={() => handleComplete(completedTask)}
+          onCancel={() => setShowModal("")}
+        />}
+
+        {showModal === "delete" && (
+          <Modal
+            onConfirm={() => handleDelete(deleteId)}
+            onCancel={() => setShowModal("")}
+          />
+        )}
       </main>
     </div>
   )
