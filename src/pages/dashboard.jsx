@@ -77,6 +77,7 @@ const Dashboard = () => {
           throw new Error("Network response was not ok");
         }
         alert("Task completed successfully");
+        setShowModal("")
       } catch (error) {
         console.error("Error completing task:", error);
       }
@@ -97,6 +98,7 @@ const Dashboard = () => {
           throw new Error("Network response was not ok");
         }
         alert("Task deleted successfully");
+        setShowModal("")
       } catch (error) {
         console.error("Error deleting task:", error);
       }
