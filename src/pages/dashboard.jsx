@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TodoItem from "../components/todo_item";
 
 const Dashboard = () => {
-  const [copyTasks, setCopyTasks] = useState([]);
   const [tasks, setTasks] = useState([])
+  const [modifiedTasks, setModifiedTasks] = useState([]);  
+  const [status, setStatus] = useState('all')
   const url = `${import.meta.env.VITE_API_URL}/Tasks`;
-    const filterTasks = (status) => {
-      switch (status) {
-        case "all":
-          setTasks(copyTasks);
-          break
-        case "true":             
-          setTasks(copyTasks.filter((task) => task.state === "true"));          
-          break
-        case "false":          
-          setTasks(copyTasks.filter((task) => task.state === "false"));              
-          break;
-      }
-    };
+  const filterTasks = (newStatus) => {    
+    setStatus(newStatus)
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -34,14 +25,28 @@ const Dashboard = () => {
         }
         const data = await response.json();
         setTasks(data);
-        setCopyTasks(data);
+        setModifiedTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
 
     fetchTasks();
-  }, [tasks]);
+  }, []);
+
+  useEffect(() => {
+    const myTasks = [...tasks];
+    const filteredTask = myTasks.filter((task) => {
+      if (status === "all") {
+        return true;
+      } else if (status === "true") {
+        return task.state === "true";
+      } else if (status === "false") {
+        return task.state === "false";
+      }
+    });    
+    setModifiedTasks(filteredTask);            
+  }, [status]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -77,7 +82,7 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (<TodoItem key={task.id} task={task} />))}
+            {modifiedTasks.map((task) => (<TodoItem key={task.id} task={task} />))}
           </tbody>
         </table>
       </main>
