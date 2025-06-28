@@ -98,7 +98,7 @@ const Dashboard = () => {
           throw new Error("Network response was not ok");
         }
         alert("Task deleted successfully");
-        setShowModal("")
+        setShowModal("");
       } catch (error) {
         console.error("Error deleting task:", error);
       }
