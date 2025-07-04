@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState("");  
   const [deleteId, setDeleteId] = useState();
   const [completedTask, setCompletedTask] = useState();
+  const [loading, setLoading] = useState(false);
   const url = `${import.meta.env.VITE_API_URL}/Tasks`;
   const filterTasks = (newStatus) => {
     setStatus(newStatus)
@@ -36,7 +37,7 @@ const Dashboard = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
     const myTasks = [...tasks];
@@ -77,7 +78,8 @@ const Dashboard = () => {
           throw new Error("Network response was not ok");
         }
         alert("Task completed successfully");
-        setShowModal("")
+        setShowModal("");
+        setLoading(!loading);
       } catch (error) {
         console.error("Error completing task:", error);
       }
@@ -97,8 +99,9 @@ const Dashboard = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        alert("Task deleted successfully");
+        alert("Task deleted successfully");        
         setShowModal("");
+        setLoading(!loading);
       } catch (error) {
         console.error("Error deleting task:", error);
       }
