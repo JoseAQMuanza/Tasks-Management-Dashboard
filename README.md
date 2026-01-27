@@ -31,64 +31,19 @@ This is a task management system (Todo List) built with **ReactJS** and **Tailwi
 ## 📁 Folder Structure
 
 ```
-src/
-|-- components/
-|   |-- form/
-|   |   |-- input.jsx
-|   |   |-- select.jsx
-|   |   |-- text_area.jsx
-|   |   |-- button.jsx
-|   \-- form.jsx
-|   \-- todo_item.jsx
+|-- api/
+|   |-- db.json/
 |
-|-- pages/
-|   |-- dashboard.jsx
-|   |-- new_user.jsx
-|   \-- edit.jsx
+src/
+|-- assets/
+|   |-- react.svg
+|-- lib/
+|   |-- use-app.ts
 |
 |-- App.jsx
 |-- index.jsx
 ```
-
 ---
-
-## 🚀 Main Features
-
-### 1. **Dashboard** (`/`)
-- Displays task list with status filter (all, completed, not completed)
-- Allows deletion, editing, and marking tasks as complete
-
-### 2. **Create New Task** (`/new_user`)
-- Form with fields: Title, Description, and Priority
-- Dynamic priority list from `GET /Priority`
-- Submits via `POST /Tasks`
-
-### 3. **Edit Task** (`/edit/:id`)
-- Fetches task by ID
-- Updates via `PATCH /Tasks/:id`
-
----
-
-## 🧩 Reusable Components
-
-- `Input`: Generic text input
-- `TextArea`: Multiline input for task descriptions
-- `Select`: Dropdown for priority
-- `Button`: Styled interactive button
-- `TodoItem`: Renders individual task rows
-
----
-
-## 📡 API Simulation (JSON Server)
-
-| Method | Endpoint         | Description               |
-|--------|------------------|---------------------------|
-| GET    | `/Tasks`         | Fetch all tasks           |
-| GET    | `/Tasks/:id`     | Get a task by ID          |
-| POST   | `/Tasks`         | Add a new task            |
-| PATCH  | `/Tasks/:id`     | Update an existing task   |
-| DELETE | `/Tasks/:id`     | Delete a task             |
-| GET    | `/Priority`      | Fetch available priorities|
 
 ### Example task object
 
@@ -96,9 +51,9 @@ src/
 {
   "id": "uuid",
   "title": "Study React",
-  "description": "Finish the hooks module",
-  "priority": "High",
-  "state": "false"
+  "description": "Finish the hooks module",  
+  "state": "false",
+  "createdAt": "2026-01-26T13:57:47.926Z"
 }
 ```
 
